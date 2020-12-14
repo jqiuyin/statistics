@@ -1,7 +1,7 @@
 from collections import Counter
 from playStats.descriptive_stats import frequency
 from playStats.descriptive_stats import mode
-
+from playStats.descriptive_stats import median
 if __name__ == '__main__':
 
     # test conuter
@@ -19,3 +19,7 @@ if __name__ == '__main__':
     mode_elements, mode_count = mode(data)
     print(mode_elements)
     print(mode_count)
+
+    # test median
+    data = [1, 4, 2, 3]
+    print(median(data))
