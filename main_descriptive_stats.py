@@ -2,6 +2,9 @@ from collections import Counter
 from playStats.descriptive_stats import frequency
 from playStats.descriptive_stats import mode
 from playStats.descriptive_stats import median
+from playStats.descriptive_stats import mean
+
+
 if __name__ == '__main__':
 
     # test conuter
@@ -23,3 +26,7 @@ if __name__ == '__main__':
     # test median
     data = [1, 4, 2, 3]
     print(median(data))
+
+    # test mean
+    data = [1, 4, 2, 3, 5, 99]
+    print(mean(data))
