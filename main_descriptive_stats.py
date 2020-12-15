@@ -6,6 +6,7 @@ from playStats.descriptive_stats import mean
 from playStats.descriptive_stats import rng
 from playStats.descriptive_stats import quartile
 from playStats.descriptive_stats import variance
+from playStats.descriptive_stats import std_variance
 
 
 if __name__ == '__main__':
@@ -44,3 +45,6 @@ if __name__ == '__main__':
     # test variance
     data = [1, 4, 2, 3, 5, 8]
     print(variance(data))
+
+    # test std_variance
+    print(std_variance(data))
