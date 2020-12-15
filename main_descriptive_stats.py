@@ -3,7 +3,7 @@ from playStats.descriptive_stats import frequency
 from playStats.descriptive_stats import mode
 from playStats.descriptive_stats import median
 from playStats.descriptive_stats import mean
-
+from playStats.descriptive_stats import rng
 
 if __name__ == '__main__':
 
@@ -30,3 +30,6 @@ if __name__ == '__main__':
     # test mean
     data = [1, 4, 2, 3, 5, 99]
     print(mean(data))
+
+    #test rng
+    print(rng(data))
