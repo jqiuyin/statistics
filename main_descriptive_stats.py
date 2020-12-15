@@ -4,7 +4,7 @@ from playStats.descriptive_stats import mode
 from playStats.descriptive_stats import median
 from playStats.descriptive_stats import mean
 from playStats.descriptive_stats import rng
-
+from playStats.descriptive_stats import quartile
 if __name__ == '__main__':
 
     # test conuter
@@ -31,5 +31,9 @@ if __name__ == '__main__':
     data = [1, 4, 2, 3, 5, 99]
     print(mean(data))
 
-    #test rng
+    # test rng
     print(rng(data))
+
+    # test quartile
+    data = [1, 4, 2, 3, 5, 8]
+    print(quartile(data))
