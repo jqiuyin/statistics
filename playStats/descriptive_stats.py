@@ -62,3 +62,12 @@ def quartile(data):
         q3 = median(sorted_data[n//2:])
 
     return q1, q2, q3
+
+
+def variance(data):
+    """样本方差"""
+    n = len(data)
+    if n <= 1:
+        return None
+    mean_value = mean(data)
+    return sum((e-mean_value) ** 2 for e in data) / (n-1)

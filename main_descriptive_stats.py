@@ -5,6 +5,9 @@ from playStats.descriptive_stats import median
 from playStats.descriptive_stats import mean
 from playStats.descriptive_stats import rng
 from playStats.descriptive_stats import quartile
+from playStats.descriptive_stats import variance
+
+
 if __name__ == '__main__':
 
     # test conuter
@@ -37,3 +40,7 @@ if __name__ == '__main__':
     # test quartile
     data = [1, 4, 2, 3, 5, 8]
     print(quartile(data))
+
+    # test variance
+    data = [1, 4, 2, 3, 5, 8]
+    print(variance(data))
