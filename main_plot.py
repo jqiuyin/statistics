@@ -28,3 +28,15 @@ if __name__ == '__main__':
     data = [random.randint(0, 100) for _ in range(1000)]
     plt.hist(data, rwidth=0.8, bins=10, density=True)
     plt.show()
+
+    # boxplot
+    data = [random.randint(0, 100) for _ in range(1000)]
+    data.append(200)
+    data.append(-200)
+    plt.boxplot(data)
+    plt.show()
+
+    data1 = [random.randint(60, 166) for _ in range(200)]
+    data2 = [random.randint(60, 120) for _ in range(200)]
+    plt.boxplot([data1, data2])
+    plt.show()
