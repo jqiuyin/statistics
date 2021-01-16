@@ -74,6 +74,6 @@ def variance(data):
     return sum((e-mean_value) ** 2 for e in data) / (n-1)
 
 
-def std_variance(data):
+def std(data):
     """样本标准差"""
     return sqrt(variance(data))
