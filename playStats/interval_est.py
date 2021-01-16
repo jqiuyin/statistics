@@ -14,6 +14,7 @@ def mean_ci_est(data, alpha, sigma=None):
         se = s/sqrt(n)
         t_value = abs(t.ppf(alpha/2, n-1))
         return sample_mean - se * t_value, sample_mean + se * t_value
+    else:
         # 方差已知
         se = sigma/sqrt(n)
         z_value = abs(norm.ppf(alpha/2))
