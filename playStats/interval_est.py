@@ -1,6 +1,6 @@
 from playStats.descriptive_stats import mean, std, variance
 from math import sqrt
-from scipy.stats import norm, t, chi2
+from scipy.stats import norm, t, chi2, f
 # 求正太总体均值的置信区间
 
 
@@ -49,3 +49,20 @@ def mean_diff_ci_t_est(data1, data2, alpha, equal=True):
         t_value = abs(t.ppf(alpha/2, df))
         return mean_diff - sqrt(sample1_var/n1+sample2_var/n2)*t_value,\
             mean_diff + sqrt(sample1_var/n1+sample2_var/n2)*t_value
+
+
+def mean_diff_ci_z_est(data1, data2, alpha, sigma1, sigma2):
+    n1 = len(data1)
+    n2 = len(data2)
+    mean_diff = mean(data1)-mean(data2)
+    z_value = abs(norm.ppf(alpha/2))
+    return mean_diff-sqrt(sigma1**2/n1+sigma2**2/n2)*z_value, mean_diff+sqrt(sigma1**2/n1+sigma2**2/n2)*z_value
+
+
+def var_ratio_ci_est(data1, data2, alpha):
+    n1 = len(data1)
+    n2 = len(data2)
+    f_lower_value = f.ppf(alpha/2, n1-1, n2-1)
+    f_upper_value = f.ppf(1-alpha/2, n1-1, n2-1)
+    var_ratio = variance(data1)/variance(data2)
+    return var_ratio/f_upper_value, var_ratio/f_lower_value
