@@ -1,6 +1,6 @@
 from math import sqrt
 from playStats.descriptive_stats import mean, std, variance
-from scipy.stats import norm, t
+from scipy.stats import norm, t, chi2, f
 
 
 def z_test(data1, data2=None, tail="both", mu=0, sigma1=1, sigma2=None):
@@ -62,3 +62,39 @@ def t_test(data1, data2=None, tail='both', mu=0, equal=True):
 def t_test_paired(data1, data2, tail="both", mu=0):
     data = [e1-e2 for (e1, e2) in zip(data1, data2)]
     return t_test(data, tail=tail, mu=mu)
+
+
+def chi2_test(data, tail="both", sigma2=1):
+    assert tail in ['both', 'left',
+                    'right'], 'tail should be one of "both","left","right"'
+    n = len(data)
+    sample_var = variance(data)
+    chi2_val = (n-1)*sample_var/sigma2
+
+    if tail == "both":
+        p = 2*min(1-chi2.cdf(chi2_val, n-1), chi2.cdf(chi2_val, n-1))
+
+    elif tail == "left":
+        p = chi2.cdf(chi2_val, n-1)
+    else:
+        p = 1-chi2.cdf(chi2_val, n-1)
+    return chi2_val, n-1, p
+
+
+def f_test(data1, data2, tail="both", ratio=1):
+    assert tail in ['both', 'left',
+                    'right'], 'tail should be one of "both","left","right"'
+    n1 = len(data1)
+    n2 = len(data2)
+    sample1_var = variance(data1)
+    sample2_var = variance(data2)
+    f_val = sample1_var/sample2_var/ratio
+    df1 = n1-1
+    df2 = n2-1
+    if tail == "both":
+        p = 2*min(1-f.cdf(f_val, df1, df2), f.cdf(f_val, df1, df2))
+    elif tail == "left":
+        p = f.cdf(f_val, df1, df2)
+    else:
+        p = 1-f.cdf(f_val, df1, df2)
+    return f_val, df1, df2, p

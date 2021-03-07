@@ -1,4 +1,4 @@
-from playStats.hypothesis_testing import z_test, t_test, t_test_paired
+from playStats.hypothesis_testing import z_test, t_test, t_test_paired, chi2_test, f_test
 from playStats.interval_est import mean_ci_est, mean_diff_ci_z_est
 
 if __name__ == "__main__":
@@ -15,6 +15,15 @@ if __name__ == "__main__":
     print(z_test(data1, data2, tail="both", mu=0, sigma1=5, sigma2=15))
     print(mean_diff_ci_z_est(data1, data2, 0.05, sigma1=5, sigma2=15))
 
+    # one-sample t-test
     print(t_test(data1, tail="both", mu=35))
+    # two-sample t-test
     print(t_test(data1, data2, tail="both", mu=0, equal=False))
+    # paird t-test
     print(t_test_paired(data1, data2, tail="both", mu=0))
+
+    # one variance chi2_test
+    print(chi2_test(data1, tail="both", sigma2=5))
+
+    # two variance f_test
+    print(f_test(data1, data2, tail="both", ratio=1))
