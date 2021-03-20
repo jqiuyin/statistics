@@ -43,6 +43,7 @@ def t_test(data1, data2=None, tail='both', mu=0, equal=True):
         if equal:
             sw = sqrt(((n1-1)*sample1_var+(n2-1)*sample2_var)/(n1+n2-2))
             t_val = (mean_diff-mu)/(sw*sqrt(1/n1+1/n2))
+            df = n1 + n2 - 2
         else:
             se = sqrt(sample1_var/n1+sample2_var/n2)
             t_val = (mean_diff-mu)/se
@@ -98,3 +99,29 @@ def f_test(data1, data2, tail="both", ratio=1):
     else:
         p = 1-f.cdf(f_val, df1, df2)
     return f_val, df1, df2, p
+
+
+def anova_oneway(data):
+    k = len(data)
+    assert k > 1
+
+    group_means=[mean(group) for group in data]
+    group_szs = [len(group) for group in data]
+    n = sum(group_szs)
+    assert n > k
+
+    grand_mean =sum(group_mean * group_sz for group_mean,group_sz in zip(group_means,group_szs))/n
+
+    sst =sum(sum((y-grand_mean)**2 for y in group)for group in data)
+    ssg = sum((group_mean-grand_mean)**2*group_sz for group_mean,group_sz in zip(group_means,group_szs))
+    sse = sst-ssg
+
+    dfg = k-1
+    dfe = n-k
+    msg = ssg/dfg
+    mse= sse/dfe
+
+    f_value = msg/mse
+    p = 1-f.cdf(f_value,dfg, dfe)
+
+    return f_value,dfg,dfe,p
