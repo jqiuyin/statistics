@@ -1,6 +1,7 @@
 from math import sqrt
 from playStats.descriptive_stats import mean, std, variance
 from scipy.stats import norm, t, chi2, f
+from playStats.descriptive_stats import cor
 
 
 def z_test(data1, data2=None, tail="both", mu=0, sigma1=1, sigma2=None):
@@ -105,23 +106,36 @@ def anova_oneway(data):
     k = len(data)
     assert k > 1
 
-    group_means=[mean(group) for group in data]
+    group_means = [mean(group) for group in data]
     group_szs = [len(group) for group in data]
     n = sum(group_szs)
     assert n > k
 
-    grand_mean =sum(group_mean * group_sz for group_mean,group_sz in zip(group_means,group_szs))/n
+    grand_mean = sum(group_mean * group_sz for group_mean,
+                     group_sz in zip(group_means, group_szs))/n
 
-    sst =sum(sum((y-grand_mean)**2 for y in group)for group in data)
-    ssg = sum((group_mean-grand_mean)**2*group_sz for group_mean,group_sz in zip(group_means,group_szs))
+    sst = sum(sum((y-grand_mean)**2 for y in group)for group in data)
+    ssg = sum((group_mean-grand_mean)**2*group_sz for group_mean,
+              group_sz in zip(group_means, group_szs))
     sse = sst-ssg
 
     dfg = k-1
     dfe = n-k
     msg = ssg/dfg
-    mse= sse/dfe
+    mse = sse/dfe
 
     f_value = msg/mse
-    p = 1-f.cdf(f_value,dfg, dfe)
+    p = 1-f.cdf(f_value, dfg, dfe)
 
-    return f_value,dfg,dfe,p
+    return f_value, dfg, dfe, p
+
+
+def cor_test(data1, data2):
+    r = cor(data1, data2)
+    if r**2 == 1:
+        return r, None, None, None
+    n = len(data1)
+    assert n > 2
+    t_value = r/sqrt((1-r**2)/(n-2))
+    p = 2*(1-t.cdf(abs(t_value), n-2))
+    return r, t_value, n-2, p

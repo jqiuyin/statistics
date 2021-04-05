@@ -1,4 +1,4 @@
-from playStats.hypothesis_testing import z_test, t_test, t_test_paired, chi2_test, f_test
+from playStats.hypothesis_testing import cor_test, z_test, t_test, t_test_paired, chi2_test, f_test
 from playStats.interval_est import mean_ci_est, mean_diff_ci_z_est
 
 if __name__ == "__main__":
@@ -27,3 +27,7 @@ if __name__ == "__main__":
 
     # two variance f_test
     print(f_test(data1, data2, tail="both", ratio=1))
+
+    score = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    happy = [1, 3, 2, 6, 4, 5, 8, 10, 9, 7]
+    print(cor_test(score, happy))

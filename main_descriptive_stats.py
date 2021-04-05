@@ -6,8 +6,8 @@ from playStats.descriptive_stats import mean
 from playStats.descriptive_stats import rng
 from playStats.descriptive_stats import quartile
 from playStats.descriptive_stats import variance
-from playStats.descriptive_stats import std_variance
-
+from playStats.descriptive_stats import std
+from playStats.descriptive_stats import covariance, cor
 
 if __name__ == '__main__':
 
@@ -47,4 +47,10 @@ if __name__ == '__main__':
     print(variance(data))
 
     # test std_variance
-    print(std_variance(data))
+    print(std(data))
+
+    # 测试协方差，相关系数
+    score = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    happy = [1, 3, 2, 6, 4, 5, 8, 10, 9, 7]
+    print(covariance(score, happy))
+    print(cor(score, happy))
